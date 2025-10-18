@@ -15,7 +15,8 @@ const squares = board.children;
 let currentPlayer = "X";
 
 let gameActive = true;
-let gameBoard = Array(9).fill(null); 
+
+let gameBoard = Array(9).fill(null);
 
 for (let i = 0; i < 9; i++) {
   squares[i].addEventListener("click", function() {
@@ -32,9 +33,13 @@ for (let i = 0; i < 9; i++) {
 
     let winner = checkWinner();
     if (winner) {
+
       gameActive = false;
+
       const status = document.getElementById("status");
       status.textContent = "Congratulations! " + winner + " is the Winner!";
+
+
       status.classList.add("you-won");
     }
 
@@ -86,4 +91,23 @@ function checkWinner() {
   return null;
 }
 
+const newGameButton = document.querySelector(".btn");
+
+
+newGameButton.addEventListener("click", function() {
+    currentPlayer = "X";
+    gameActive = true;
+    gameBoard = Array(9).fill(null);
+
+    let i = 0;
+    while (i < squares.length) {
+
+
+
+      squares[i].textContent = "";
+
+      squares[i].classList.remove("X", "O","hover");
+      i++;
+    }
+    });
 });
