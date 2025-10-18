@@ -6,14 +6,8 @@ const board = document.getElementById("board");
 const squares = board.children; 
 
   const children = board.children;
-  let i = 0;
-
-  while(i < children.length) {
-
+  for (let i = 0; i < children.length; i++) {
     children[i].classList.add("square");
-
-    i++;
-
   }
 
 
@@ -23,43 +17,33 @@ let currentPlayer = "X";
 let gameActive = true;
 let gameBoard = Array(9).fill(null); 
 
-i = 0;
-while(i < 9) {
+for (let i = 0; i < 9; i++) {
+  squares[i].addEventListener("click", function() {
 
-    squares[i].addEventListener("click", function() {
+    if (!gameActive || gameBoard[i] !== null) return; 
 
-        if (!gameActive || gameBoard[i] !== null) return; 
+    squares[i].textContent = currentPlayer;
+    squares[i].classList.add(currentPlayer);
 
-        squares[i].textContent = currentPlayer;
-        squares[i].classList.add(currentPlayer);
+    gameBoard[i] = currentPlayer;
 
-        gameBoard[i] = currentPlayer;
 
-        if(currentPlayer === "X") {
-            currentPlayer = "O";
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
 
-        } 
-        else {
-            currentPlayer = "X";
-        }
+    let winner = checkWinner();
+    if (winner) {
+      gameActive = false;
+      const status = document.getElementById("status");
+      status.textContent = "Congratulations! " + winner + " is the Winner!";
+      status.classList.add("you-won");
+    }
 
-        let winner = checkWinner();
-        if (winner) {
-          gameActive = false;
-          const status = document.getElementById("status");
-          status.textContent = "Congratulations! " + winner + " is the Winner!";
-          status.classList.add("you-won");
-        }
-
-    });
-
-    i++;
+  });
 }
     
 // Part 3 
 
-let j = 0;
-while (j < 9) {
+for (let j = 0; j < 9; j++) {
   squares[j].addEventListener("mouseover", function () {
 
     if (gameBoard[j] === null && gameActive) {
@@ -74,8 +58,6 @@ while (j < 9) {
     squares[j].classList.remove("hover");
 
   });
-
-  j++;
 }
 
 function checkWinner() {
@@ -92,7 +74,6 @@ function checkWinner() {
 
   for (let combo of winningCombos) {
 
-
     const [a, b, c] = combo;
 
     if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[b] === gameBoard[c]) {
@@ -101,9 +82,8 @@ function checkWinner() {
 
     }
 
-    
   }
   return null;
 }
 
-}); 
+});
