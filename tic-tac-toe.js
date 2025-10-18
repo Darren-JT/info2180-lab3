@@ -47,5 +47,28 @@ while(i < 9) {
         }
         i++;
     };
+    
+// Part 3 
+
+let j = 0;
+while (j < 9) {
+  squares[j].addEventListener("mouseover", function () {
+
+
+    if (board[j] === null && gameActive) {
+      squares[j].classList.add("hover");
+
+    }
+
+  });
+
+  squares[j].addEventListener("mouseout", function () {
+
+    squares[j].classList.remove("hover");
+
+  });
+
+  j++;
+}
 
 }
